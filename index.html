@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pokemon Ürünler – Kurumsal koleksiyon platformu:  nadir Pokémon ürünleri, vitrin ve detay inceleme." />
+  <meta name="theme-color" content="#ef4444" />
+  <title>Pokemon Ürünler | Ana Sayfa</title>
+
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-72x72.png" />
+  <link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    
+    * {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+    }
+
+    /* Smooth transitions */
+    button, a, .product-card {
+      transition: all 0.3s ease;
+    }
+
+    /* Navigation effects */
+    .nav-link {
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, #ef4444, #dc2626);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-link.active::after {
+      width:  100%;
+    }
+
+    /* Hero animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .float-animation {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(239, 68, 68, 0.6); }
+    }
+
+    .pulse-glow {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    /* Card hover effects */
+    .product-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-card img {
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Button effects */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background:  rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn-primary:hover::before {
+      width: 400px;
+      height: 400px;
+    }
+
+    .btn-primary span {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Glass morphism */
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    /* Stats counter animation */
+    @keyframes countUp {
+      from { opacity: 0; transform:  translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stat-card {
+      animation: countUp 0.6s ease-out forwards;
+    }
+
+    /* Mobile menu slide */
+    .mobile-menu-enter {
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform:  translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform:  translateY(0);
+      }
+    }
+
+    /* Loading shimmer effect */
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
+    }
+
+    .shimmer {
+      animation: shimmer 2s infinite linear;
+      background: linear-gradient(to right, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+      background-size: 1000px 100%;
+    }
+
+    /* Status badge pulse */
+    @keyframes statusPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .status-dot {
+      animation: statusPulse 2s ease-in-out infinite;
+    }
+
+    /* Hero gradient animation */
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .animated-gradient {
+      background-size: 200% 200%;
+      animation: gradientShift 15s ease infinite;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- NAVIGATION -->
+  <nav class="glass-effect border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm: px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105 pulse-glow">
+          <span class="text-white font-black text-xl">P</span>
+        </div>
+        <div class="leading-tight">
+          <div class="font-extrabold text-lg bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">Pokemon Ürünler</div>
+        </div>
+      </a>
+
+      <div class="hidden md:flex items-center gap-8">
+        <a href="/" class="nav-link active font-bold text-red-600">Ana Sayfa</a>
+        <a href="/products.html" class="nav-link font-semibold text-gray-700 hover:text-red-600 transition">Ürünler</a>
+        <a href="/about.html" class="nav-link font-semibold text-gray-700 hover:text-red-600 transition">Hakkımızda</a>
+        <a href="/contact.html" class="nav-link font-semibold text-gray-700 hover:text-red-600 transition">İletişim</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="installBtn" class=" hidden btn-primary bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg hover:shadow-xl">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            Uygulamayı Yükle
+          </span>
+        </button>
+        <button id="mobileMenuBtn" class="md:hidden p-2.5 rounded-xl border-2 border-gray-200 bg-white hover:bg-gray-50 transition-all hover:border-red-300">
+          <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden border-t bg-white mobile-menu-enter">
+      <div class="max-w-7xl mx-auto px-4 py-4 grid gap-2 font-semibold">
+        <a href="/" class="px-4 py-3 rounded-xl bg-gradient-to-r from-red-50 to-red-100 text-red-700 font-bold">Ana Sayfa</a>
+        <a href="/products.html" class="px-4 py-3 rounded-xl hover:bg-gray-50 transition">Ürünler</a>
+        <a href="/about.html" class="px-4 py-3 rounded-xl hover:bg-gray-50 transition">Hakkımızda</a>
+        <a href="/contact.html" class="px-4 py-3 rounded-xl hover:bg-gray-50 transition">İletişim</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-red-500 via-red-600 to-purple-700 animated-gradient"></div>
+    
+    <!-- Decorative elements -->
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl float-animation"></div>
+    <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-white/10 rounded-full blur-3xl float-animation" style="animation-delay: -3s;"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white/5 rounded-full blur-2xl"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <!-- Left Column -->
+        <div class="lg:col-span-7 text-white">
+          <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+            <span class="w-2 h-2 rounded-full bg-white status-dot"></span>
+            <span>Yeni sezon koleksiyon vitrini yayında</span>
+          </div>
+
+          <h1 class="mt-6 text-4xl md:text-6xl font-black leading-tight drop-shadow-lg">
+            Nadir Pokémon Koleksiyonlarını<br class="hidden md:block" />
+            Kurumsal Vitrinde Keşfedin
+          </h1>
+
+          <p class="mt-5 text-white/95 text-lg md:text-xl max-w-2xl leading-relaxed font-medium">
+            Pokemon Ürünler, gerçek bir işletme senaryosu için tasarlanmış PWA tabanlı
+            kurumsal bir vitrindir. Ürünleri inceleyin, filtreleyin, detaylarını görün. 
+          </p>
+
+          <div class="mt-8 flex flex-col sm:flex-row gap-4">
+            <a href="/products.html"
+               class="btn-primary group bg-white text-gray-900 px-8 py-4 rounded-2xl font-extrabold shadow-2xl hover:shadow-3xl transition-all inline-flex items-center justify-center gap-3">
+              <span>Ürünleri İncele</span>
+              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+            <a href="/about.html"
+               class="btn-primary group bg-white/15 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-4 rounded-2xl font-extrabold hover:bg-white/25 transition-all inline-flex items-center justify-center gap-3">
+              <span>Platformu Tanı</span>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Stats Cards -->
+          <div class="mt-10 grid grid-cols-3 gap-4 max-w-2xl">
+            <div class="stat-card bg-white/15 backdrop-blur-sm border border-white/25 rounded-2xl p-5 shadow-xl" style="animation-delay: 0.1s;">
+              <div class="text-3xl font-black mb-1" id="statTotal">—</div>
+              <div class="text-white/90 text-sm font-bold">Toplam Ürün</div>
+            </div>
+            <div class="stat-card bg-white/15 backdrop-blur-sm border border-white/25 rounded-2xl p-5 shadow-xl" style="animation-delay: 0.2s;">
+              <div class="text-3xl font-black mb-1">PWA</div>
+              <div class="text-white/90 text-sm font-bold">Kurulabilir</div>
+            </div>
+            <div class="stat-card bg-white/15 backdrop-blur-sm border border-white/25 rounded-2xl p-5 shadow-xl" style="animation-delay: 0.3s;">
+              <div class="text-3xl font-black mb-1">24/7</div>
+              <div class="text-white/90 text-sm font-bold">Offline Erişim</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - Control Panel -->
+        <div class="lg:col-span-5">
+          <div class="bg-white rounded-3xl shadow-2xl border-2 border-white/40 overflow-hidden">
+            <div class="p-6 border-b bg-gradient-to-r from-gray-50 to-white">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-md">
+                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-extrabold text-xl text-gray-800">Vitrin Kontrolü</div>
+                  <p class="text-gray-600 text-sm font-medium">Öne çıkan ürünleri filtreleyip sıralayın</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 grid gap-5">
+              <!-- Search & Type Filter -->
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-sm font-bold text-gray-700 mb-2 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    Arama
+                  </label>
+                  <input id="searchInput" type="text" placeholder="Örn: pikachu / 25"
+                         class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus: border-red-500 focus: outline-none focus:ring-2 focus:ring-red-200 transition-all font-medium" />
+                </div>
+                <div>
+                  <label class="text-sm font-bold text-gray-700 mb-2 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                    </svg>
+                    Tür
+                  </label>
+                  <select id="typeFilter"
+                          class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-200 transition-all font-medium">
+                    <option value="">Tüm Türler</option>
+                    <option value="fire">🔥 Ateş</option>
+                    <option value="water">💧 Su</option>
+                    <option value="grass">🌿 Çimen</option>
+                    <option value="electric">⚡ Elektrik</option>
+                    <option value="psychic">🔮 Psişik</option>
+                    <option value="dragon">🐉 Ejderha</option>
+                    <option value="fairy">✨ Peri</option>
+                    <option value="dark">🌑 Karanlık</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Sort Order -->
+              <div>
+                <label class="text-sm font-bold text-gray-700 mb-2 flex items-center gap-2">
+                  <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                  </svg>
+                  Sıralama
+                </label>
+                <select id="sortOrder"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-200 transition-all font-medium">
+                  <option value="featured">⭐ Öne Çıkanlar</option>
+                  <option value="price-desc">💰 Fiyat (Azalan)</option>
+                  <option value="price-asc">💵 Fiyat (Artan)</option>
+                  <option value="id-asc">🔢 ID (Artan)</option>
+                  <option value="name-asc">🔤 İsim (A-Z)</option>
+                </select>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="grid grid-cols-2 gap-3 pt-2">
+                <button id="resetBtn"
+                        class="px-5 py-3.5 rounded-xl border-2 border-gray-300 font-extrabold hover:bg-gray-50 hover:border-gray-400 transition-all flex items-center justify-center gap-2 text-gray-700">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  Sıfırla
+                </button>
+                <a href="/products.html"
+                   class="px-5 py-3.5 rounded-xl bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-extrabold text-center shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                  Tüm Liste
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEATURED PRODUCTS SECTION -->
+      <section class="mt-16 reveal">
+        <div class="flex items-end justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-white text-3xl md:text-4xl font-black flex items-center gap-3">
+              <span class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              </span>
+              Öne Çıkan Ürünler
+            </h2>
+            <p class="text-white/95 font-semibold mt-2 text-lg">API'den çekilen verilerle oluşturulan vitrin</p>
+          </div>
+          <a href="/products.html" class="hidden sm:inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border-2 border-white/30 text-white px-6 py-3 rounded-2xl font-extrabold hover:bg-white/25 transition-all shadow-lg">
+            <span>Tüm Ürünler</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2. 5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-3xl p-4 md:p-6 shadow-2xl">
+          <div id="featuredProducts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"></div>
+        </div>
+      </section>
+    </div>
+  </header>
+
+  <!-- FOOTER -->
+  <footer class="mt-20 border-t bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid md:grid-cols-4 gap-10">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-lg">
+            <span class="text-white font-black text-2xl">P</span>
+          </div>
+          <div>
+            <div class="font-extrabold text-xl bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">Pokemon Ürünler</div>
+            <div class="text-xs text-gray-500 font-semibold">Kurumsal Koleksiyon Platformu</div>
+          </div>
+        </div>
+        <p class="text-gray-600 font-medium leading-relaxed max-w-xl mb-6">
+          Kurumsal vitrin deneyimi:  ürün keşfi, detay inceleme, PWA kurulum ve offline senaryosu. 
+        </p>
+        
+        <p class="mt-6 text-xs text-gray-500 font-semibold">© 2026 Pokemon Ürünler.  Tüm hakları saklıdır.</p>
+      </div>
+
+      <div>
+        <div class="font-black mb-4 text-lg text-gray-800">Hızlı Linkler</div>
+        <div class="grid gap-3 font-semibold text-gray-700">
+          <a class="hover:text-red-600 transition-colors flex items-center gap-2 group" href="/">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            Ana Sayfa
+          </a>
+          <a class="hover: text-red-600 transition-colors flex items-center gap-2 group" href="/products.html">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            Ürünler
+          </a>
+          <a class="hover:text-red-600 transition-colors flex items-center gap-2 group" href="/about.html">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            Hakkımızda
+          </a>
+          <a class="hover:text-red-600 transition-colors flex items-center gap-2 group" href="/contact.html">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            İletişim
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-black mb-4 text-lg text-gray-800">Bağlantı Durumu</div>
+        <div class="bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 rounded-2xl p-5 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8. 111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+            </svg>
+            <div class="text-sm font-extrabold text-gray-800">Ağ Durumu</div>
+          </div>
+          <div id="connBadge" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-green-100 text-green-700 font-extrabold text-sm shadow-sm">
+            <span class="w-2.5 h-2.5 rounded-full bg-green-600 status-dot"></span> 
+            ONLINE
+          </div>
+          <div class="mt-4 text-xs text-gray-600 font-medium leading-relaxed">
+            Offline modda daha önce ziyaret edilen sayfalar ve örnek veri görüntülenebilir.
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenuBtn) {
+      mobileMenuBtn. addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    // Scroll reveal animation
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+      revealElements. forEach(el => {
+        const elementTop = el.getBoundingClientRect().top;
+        const elementVisible = 150;
+        if (elementTop < window.innerHeight - elementVisible) {
+          el.classList.add('active');
+        }
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+
+    // Type class mapping
+    const TYPE_CLASS = {
+      fire: "bg-red-100 text-red-700 border-red-200",
+      water: "bg-blue-100 text-blue-700 border-blue-200",
+      grass: "bg-green-100 text-green-700 border-green-200",
+      electric: "bg-yellow-100 text-yellow-800 border-yellow-200",
+      psychic: "bg-purple-100 text-purple-700 border-purple-200",
+      dragon: "bg-indigo-100 text-indigo-700 border-indigo-200",
+      fairy: "bg-pink-100 text-pink-700 border-pink-200",
+      dark: "bg-gray-200 text-gray-800 border-gray-300",
+      normal: "bg-gray-100 text-gray-700 border-gray-200",
+      fighting: "bg-orange-100 text-orange-700 border-orange-200",
+      flying: "bg-cyan-100 text-cyan-700 border-cyan-200",
+      poison: "bg-purple-100 text-purple-700 border-purple-200",
+      ground: "bg-yellow-100 text-yellow-800 border-yellow-200",
+      rock: "bg-gray-200 text-gray-800 border-gray-300",
+      bug: "bg-green-100 text-green-700 border-green-200",
+      ghost:  "bg-purple-100 text-purple-700 border-purple-200",
+      steel: "bg-gray-200 text-gray-800 border-gray-300",
+      ice: "bg-cyan-100 text-cyan-700 border-cyan-200"
+    };
+
+    const featuredEl = document.getElementById("featuredProducts");
+    const searchInput = document.getElementById("searchInput");
+    const typeFilter = document.getElementById("typeFilter");
+    const sortOrder = document.getElementById("sortOrder");
+    const resetBtn = document.getElementById("resetBtn");
+    const statTotal = document.getElementById("statTotal");
+    const connBadge = document.getElementById("connBadge");
+
+    let baseList = [];
+    let viewList = [];
+
+    // Connection status UI
+    function setConnUI() {
+      const online = navigator.onLine;
+      if (! connBadge) return;
+      
+      if (online) {
+        connBadge.className = "inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-green-100 text-green-700 font-extrabold text-sm shadow-sm border-2 border-green-200";
+        connBadge. innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-green-600 status-dot"></span> ONLINE';
+      } else {
+        connBadge.className = "inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-100 text-red-700 font-extrabold text-sm shadow-sm border-2 border-red-200";
+        connBadge.innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-red-600 status-dot"></span> OFFLINE';
+      }
+    }
+    
+    window.addEventListener("online", setConnUI);
+    window.addEventListener("offline", setConnUI);
+    setConnUI();
+
+    // Apply filters
+    function applyFilters() {
+      const q = (searchInput?. value || "").trim().toLowerCase();
+      const t = typeFilter?.value || "";
+      const s = sortOrder?. value || "featured";
+
+      viewList = baseList.filter(p => {
+        const matchQ = ! q || p.name.toLowerCase().includes(q) || String(p.id) === q;
+        const matchT = ! t || (p.types || []).includes(t);
+        return matchQ && matchT;
+      });
+
+      viewList.sort((a, b) => {
+        switch(s) {
+          case "price-desc":  return (b.price || 0) - (a.price || 0);
+          case "price-asc": return (a.price || 0) - (b.price || 0);
+          case "id-asc": return (a.id || 0) - (b.id || 0);
+          case "name-asc": return a.name.localeCompare(b.name);
+          case "featured": 
+          default: 
+            const ar = (a.rarity === "Legendary" ? 0 : a.rarity === "Mythical" ? 1 : 2);
+            const br = (b.rarity === "Legendary" ? 0 : b. rarity === "Mythical" ? 1 : 2);
+            return ar - br || (a.id - b.id);
+        }
+      });
+
+      render();
+    }
+
+    // Render products
+    function render() {
+      if (! featuredEl) return;
+
+      if (! viewList.length) {
+        app.showEmpty(featuredEl, "Aradığınız kriterlere uygun ürün bulunamadı.");
+        return;
+      }
+
+      featuredEl.innerHTML = viewList. map(p => `
+        <article class="product-card bg-white rounded-2xl shadow-lg border-2 border-gray-100 overflow-hidden cursor-pointer"
+                 onclick="location.href='/detail.html?id=${p.id}'">
+          <div class="p-5 bg-gradient-to-br from-gray-50 via-white to-gray-50 border-b-2 border-gray-100 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-100 to-purple-100 rounded-full blur-3xl opacity-30"></div>
+            <div class="relative flex items-center justify-between mb-3">
+              <div class="text-xs font-black text-gray-400 bg-gray-100 px-3 py-1. 5 rounded-full">#${String(p.id).padStart(3,'0')}</div>
+              ${p.rarity ?  `<div class="text-[10px] font-extrabold px-3 py-1.5 rounded-full border-2 shadow-sm ${p.rarity==='Legendary'?'bg-gradient-to-r from-yellow-400 to-yellow-500 text-white border-yellow-300':p.rarity==='Mythical'?'bg-gradient-to-r from-purple-500 to-purple-600 text-white border-purple-400':'bg-gray-100 text-gray-700 border-gray-200'}">${p.rarity}</div>` : ""}
+            </div>
+            <img src="${p.image}" alt="${p.name}" class="mt-2 h-40 w-full object-contain drop-shadow-lg relative z-10" loading="lazy">
+          </div>
+
+          <div class="p-5">
+            <div class="font-black text-xl capitalize text-gray-800 mb-3">${p.name}</div>
+
+            <div class="flex flex-wrap gap-2 mb-4">
+              ${(p.types||[]).slice(0,3).map(t => `
+                <span class="text-[11px] font-extrabold px-3 py-1.5 rounded-lg border ${TYPE_CLASS[t] || 'bg-gray-100 text-gray-700 border-gray-200'}">
+                  ${t. toUpperCase()}
+                </span>
+              `).join("")}
+            </div>
+
+            <div class="flex items-center justify-between pt-3 border-t-2 border-gray-100">
+              <div class="text-red-600 font-black text-2xl">₺${p.price ??  "—"}</div>
+              <div class="inline-flex items-center gap-2 text-sm font-extrabold text-gray-600 group">
+                <span class="group-hover:text-red-600 transition-colors">Detaya Git</span>
+                <span class="w-8 h-8 rounded-xl bg-gray-100 group-hover:bg-red-500 flex items-center justify-center transition-all group-hover:shadow-lg">
+                  <svg class="w-4 h-4 text-gray-700 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    // Initialize featured products
+    async function initFeatured() {
+      app.showLoading(featuredEl);
+
+      try {
+        const data = await pokeAPI.getPokemonList(12, 0);
+        baseList = data. results;
+        statTotal.textContent = data.count || baseList.length || "—";
+        applyFilters();
+      } catch (e) {
+        const fallback = await pokeAPI.loadFallbackData();
+        if (fallback?. results?. length) {
+          baseList = fallback.results;
+          statTotal.textContent = baseList.length;
+          const warn = app.showFallbackWarning();
+          featuredEl.parentElement.insertBefore(warn, featuredEl);
+          applyFilters();
+        } else {
+          app.showError(featuredEl, "Vitrin ürünleri yüklenemedi.  Bağlantınızı kontrol edip tekrar deneyin.", "initFeatured()");
+        }
+      }
+    }
+
+    // Event listeners
+    if (searchInput) searchInput.addEventListener("input", () => applyFilters());
+    if (typeFilter) typeFilter.addEventListener("change", () => applyFilters());
+    if (sortOrder) sortOrder.addEventListener("change", () => applyFilters());
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        typeFilter.value = "";
+        sortOrder.value = "featured";
+        applyFilters();
+      });
+    }
+
+    // Initialize
+    initFeatured();
+  </script>
+</body>
+</html>

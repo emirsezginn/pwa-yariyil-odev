@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pokemon Ürünler iletişim formu: doğrulama ve kullanıcı mesajları." />
+  <meta name="theme-color" content="#ef4444" />
+  <title>İletişim | Pokemon Ürünler</title>
+
+  <link rel="manifest" href="/manifest.json" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    *{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+  <nav class="bg-white/90 backdrop-blur border-b sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/" class="font-extrabold text-lg text-red-600">Pokemon Ürünler</a>
+      <div class="hidden md:flex gap-6 font-semibold">
+        <a href="/" class="hover:text-red-600">Ana Sayfa</a>
+        <a href="/products.html" class="hover:text-red-600">Ürünler</a>
+        <a href="/about.html" class="hover:text-red-600">Hakkımızda</a>
+        <a href="/contact.html" class="text-red-600">İletişim</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="bg-white border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <h1 class="text-4xl font-black">İletişim</h1>
+      <p class="mt-2 text-gray-600 font-medium max-w-2xl">
+        Sorularınız, iş birliği talepleriniz veya geri bildirimleriniz için bizimle iletişime geçin.
+      </p>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <section class="bg-white rounded-3xl shadow border p-7">
+      <form id="contactForm" class="space-y-5" novalidate>
+        <div>
+          <label class="text-sm font-black text-gray-700">Ad Soyad</label>
+          <input id="name" type="text" class="mt-1 w-full px-4 py-3 rounded-2xl border-2 border-gray-200 focus:border-red-500 focus:outline-none"
+                 placeholder="Örn: Emirhan Sezgin" />
+          <p id="nameErr" class="mt-1 text-sm font-bold text-red-600 hidden">Lütfen ad soyad girin (min. 2 karakter).</p>
+        </div>
+
+        <div>
+          <label class="text-sm font-black text-gray-700">E-posta</label>
+          <input id="email" type="email" class="mt-1 w-full px-4 py-3 rounded-2xl border-2 border-gray-200 focus:border-red-500 focus:outline-none"
+                 placeholder="ornek@mail.com" />
+          <p id="emailErr" class="mt-1 text-sm font-bold text-red-600 hidden">Lütfen geçerli bir e-posta girin.</p>
+        </div>
+
+        <div>
+          <label class="text-sm font-black text-gray-700">Mesaj</label>
+          <textarea id="message" rows="5"
+                    class="mt-1 w-full px-4 py-3 rounded-2xl border-2 border-gray-200 focus:border-red-500 focus:outline-none"
+                    placeholder="Mesajınızı yazın..."></textarea>
+          <p id="msgErr" class="mt-1 text-sm font-bold text-red-600 hidden">Mesaj en az 10 karakter olmalıdır.</p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button type="submit" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 rounded-2xl font-extrabold shadow">
+            Gönder
+          </button>
+          <button type="button" id="clearBtn" class="flex-1 border-2 border-gray-200 hover:bg-gray-50 py-3 rounded-2xl font-extrabold">
+            Temizle
+          </button>
+        </div>
+
+        <div id="formAlert" class="hidden rounded-2xl p-4 font-extrabold"></div>
+        <p class="text-xs text-gray-500 font-semibold">
+          Bu form UI odaklıdır. Gerçek veri gönderimi zorunlu değildir.
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("contactForm");
+    const clearBtn = document.getElementById("clearBtn");
+
+    const nameEl = document.getElementById("name");
+    const emailEl = document.getElementById("email");
+    const msgEl = document.getElementById("message");
+
+    const nameErr = document.getElementById("nameErr");
+    const emailErr = document.getElementById("emailErr");
+    const msgErr = document.getElementById("msgErr");
+
+    const alertBox = document.getElementById("formAlert");
+
+    function isEmail(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    }
+
+    function setAlert(type, text) {
+      alertBox.classList.remove("hidden");
+      if (type === "success") {
+        alertBox.className = "rounded-2xl p-4 font-extrabold bg-green-100 text-green-700";
+      } else {
+        alertBox.className = "rounded-2xl p-4 font-extrabold bg-red-100 text-red-700";
+      }
+      alertBox.textContent = text;
+    }
+
+    function validate() {
+      const nameV = nameEl.value.trim();
+      const emailV = emailEl.value.trim();
+      const msgV = msgEl.value.trim();
+
+      const okName = nameV.length >= 2;
+      const okEmail = isEmail(emailV);
+      const okMsg = msgV.length >= 10;
+
+      nameErr.classList.toggle("hidden", okName);
+      emailErr.classList.toggle("hidden", okEmail);
+      msgErr.classList.toggle("hidden", okMsg);
+
+      return okName && okEmail && okMsg;
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alertBox.classList.add("hidden");
+
+      if (!validate()) {
+        setAlert("error", "Formda hatalar var. Lütfen alanları kontrol edin.");
+        return;
+      }
+
+      // Demo: gerçek gönderim zorunlu değil
+      setAlert("success", "Mesajınız başarıyla alındı. En kısa sürede dönüş yapacağız.");
+      form.reset();
+    });
+
+    clearBtn.addEventListener("click", () => {
+      form.reset();
+      alertBox.classList.add("hidden");
+      nameErr.classList.add("hidden");
+      emailErr.classList.add("hidden");
+      msgErr.classList.add("hidden");
+    });
+
+    // canlı doğrulama
+    [nameEl, emailEl, msgEl].forEach(el => el.addEventListener("input", validate));
+  </script>
+</body>
+</html>

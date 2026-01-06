@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pokemon Ürünler hakkında: kurumsal tanıtım, uygulama amacı, kullanılan teknolojiler." />
+  <meta name="theme-color" content="#ef4444" />
+  <title>Hakkımızda | Pokemon Ürünler</title>
+
+  <link rel="manifest" href="/manifest.json" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    *{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+  <nav class="bg-white/90 backdrop-blur border-b sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/" class="font-extrabold text-lg text-red-600">Pokemon Ürünler</a>
+      <div class="hidden md:flex gap-6 font-semibold">
+        <a href="/" class="hover:text-red-600">Ana Sayfa</a>
+        <a href="/products.html" class="hover:text-red-600">Ürünler</a>
+        <a href="/about.html" class="text-red-600">Hakkımızda</a>
+        <a href="/contact.html" class="hover:text-red-600">İletişim</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="bg-white border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <h1 class="text-4xl font-black">Hakkımızda</h1>
+      <p class="mt-2 text-gray-600 font-medium max-w-3xl">
+        Pokemon Ürünler, koleksiyon ürünlerini kurumsal vitrinde sunmak için tasarlanmış modern bir PWA uygulamasıdır.
+      </p>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="grid lg:grid-cols-3 gap-6">
+      <section class="bg-white rounded-3xl shadow border p-7 lg:col-span-2">
+        <h2 class="text-2xl font-black">Kurumsal Tanıtım</h2>
+        <p class="mt-3 text-gray-700 font-medium leading-relaxed">
+          Pokemon Ürünler; ürün keşfi, detay inceleme ve kullanıcı etkileşimini merkez alan bir vitrin deneyimi sunar.
+          Bu proje, dönem boyunca işlenen PWA kavramlarını gerçek bir işletme web sitesi senaryosu üzerinden
+          uygulamayı hedefler.
+        </p>
+
+        <h3 class="mt-6 text-xl font-black">Uygulamanın Amacı</h3>
+        <p class="mt-2 text-gray-700 font-medium leading-relaxed">
+          Kullanıcılara mobil uyumlu, modern ve hızlı bir arayüz ile ürünleri listeleme, filtreleme/sıralama ve
+          detayları görme imkânı sağlamak; ayrıca PWA özellikleri ile kurulabilirlik ve offline senaryosunu desteklemektir.
+        </p>
+      </section>
+
+      <aside class="bg-white rounded-3xl shadow border p-7">
+        <h2 class="text-xl font-black">Teknolojiler</h2>
+
+        <div class="mt-4 space-y-3">
+          <div class="bg-gray-50 border rounded-2xl p-4">
+            <div class="text-xs font-black text-gray-500">Kullanılan API</div>
+            <div class="font-extrabold">PokeAPI</div>
+            <div class="text-sm text-gray-600 font-semibold">https://pokeapi.co</div>
+          </div>
+
+          <div class="bg-gray-50 border rounded-2xl p-4">
+            <div class="text-xs font-black text-gray-500">CSS Çatısı</div>
+            <div class="font-extrabold">Tailwind CSS</div>
+            <div class="text-sm text-gray-600 font-semibold">https://tailwindcss.com</div>
+          </div>
+
+          <div class="bg-gray-50 border rounded-2xl p-4">
+            <div class="text-xs font-black text-gray-500">Offline Mantığı</div>
+            <div class="text-sm text-gray-700 font-semibold leading-relaxed mt-1">
+              Service Worker, uygulama kabuğunu (HTML/JS/manifest/icon) cache’ler.
+              Bağlantı yokken kullanıcı offline.html sayfasına yönlendirilir.
+              API erişilemezse örnek veri (sample.json) devreye alınır.
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="border-t bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-sm font-semibold text-gray-500">
+      © 2026 Pokemon Ürünler — Kurumsal Bilgilendirme
+    </div>
+  </footer>
+</body>
+</html>

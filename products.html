@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pokemon Ürünler ürün kataloğu: filtrele, sırala, detay incele." />
+  <meta name="theme-color" content="#ef4444" />
+  <title>Ürünler | Pokemon Ürünler</title>
+
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-72x72.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    *{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+  
+
+  <!-- NAV -->
+  <nav class="bg-white/90 backdrop-blur border-b sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow">
+          <span class="text-white font-black text-xl">P</span>
+        </div>
+        <div class="font-extrabold text-lg">Pokemon Ürünler</div>
+      </a>
+
+      <div class="hidden md:flex items-center gap-8 font-semibold">
+        <a href="/" class="text-gray-700 hover:text-red-600 transition">Ana Sayfa</a>
+        <a href="/products.html" class="text-red-600">Ürünler</a>
+        <a href="/about.html" class="text-gray-700 hover:text-red-600 transition">Hakkımızda</a>
+        <a href="/contact.html" class="text-gray-700 hover:text-red-600 transition">İletişim</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="installBtn" class="hidden bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl font-bold text-sm shadow">
+          Uygulamayı Yükle
+        </button>
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg border border-gray-200 bg-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden border-t bg-white">
+      <div class="max-w-7xl mx-auto px-4 py-3 grid gap-2 font-semibold">
+        <a href="/" class="px-3 py-2 rounded-lg hover:bg-gray-50">Ana Sayfa</a>
+        <a href="/products.html" class="px-3 py-2 rounded-lg bg-red-50 text-red-700">Ürünler</a>
+        <a href="/about.html" class="px-3 py-2 rounded-lg hover:bg-gray-50">Hakkımızda</a>
+        <a href="/contact.html" class="px-3 py-2 rounded-lg hover:bg-gray-50">İletişim</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-r from-red-500 to-red-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h1 class="text-4xl md:text-5xl font-black">Ürün Kataloğu</h1>
+      <p class="mt-3 text-white/90 text-lg font-semibold max-w-2xl">
+        API’den gelen ürünleri filtreleyin, sıralayın ve detay sayfasında inceleyin.
+      </p>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <!-- CONTROLS -->
+    <section class="bg-white rounded-3xl shadow border border-gray-100 p-5 md:p-6">
+      <div class="grid lg:grid-cols-12 gap-4 items-end">
+        <div class="lg:col-span-5">
+          <label class="text-sm font-black text-gray-700">Arama</label>
+          <input id="q" type="text" placeholder="Örn: charizard / 6"
+                 class="mt-1 w-full px-4 py-3 rounded-2xl border-2 border-gray-200 focus:border-red-500 focus:outline-none" />
+        </div>
+
+        <div class="lg:col-span-3">
+          <label class="text-sm font-black text-gray-700">Tür</label>
+          <select id="type" class="mt-1 w-full px-4 py-3 rounded-2xl border-2 border-gray-200 focus:border-red-500 focus:outline-none">
+            <option value="">Tüm Türler</option>
+            <option value="fire">Ateş</option>
+            <option value="water">Su</option>
+            <option value="grass">Çimen</option>
+            <option value="electric">Elektrik</option>
+            <option value="psychic">Psişik</option>
+            <option value="dragon">Ejderha</option>
+            <option value="fairy">Peri</option>
+            <option value="dark">Karanlık</option>
+          </select>
+        </div>
+
+        <div class="lg:col-span-3">
+          <label class="text-sm font-black text-gray-700">Sıralama</label>
+          <select id="sort" class="mt-1 w-full px-4 py-3 rounded-2xl border-2 border-gray-200 focus:border-red-500 focus:outline-none">
+            <option value="id-asc">ID (Artan)</option>
+            <option value="id-desc">ID (Azalan)</option>
+            <option value="price-asc">Fiyat (Artan)</option>
+            <option value="price-desc">Fiyat (Azalan)</option>
+            <option value="name-asc">İsim (A-Z)</option>
+            <option value="name-desc">İsim (Z-A)</option>
+          </select>
+        </div>
+
+        <div class="lg:col-span-1">
+          <button id="reset"
+                  class="w-full px-4 py-3 rounded-2xl border-2 border-gray-200 font-extrabold hover:bg-gray-50 transition">
+            ↺
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div id="count" class="text-sm font-extrabold text-gray-600">—</div>
+        <div class="flex gap-2">
+          <button id="prev" class="px-4 py-2 rounded-xl border-2 border-gray-200 font-extrabold hover:border-red-500 hover:text-red-600 transition disabled:opacity-50" disabled>
+            ← Önceki
+          </button>
+          <div id="pageInfo" class="px-4 py-2 rounded-xl bg-gray-50 border font-extrabold text-gray-700">Sayfa 1</div>
+          <button id="next" class="px-4 py-2 rounded-xl border-2 border-gray-200 font-extrabold hover:border-red-500 hover:text-red-600 transition disabled:opacity-50" disabled>
+            Sonraki →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRID -->
+    <section class="mt-6">
+      <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"></div>
+
+      <div class="mt-10 text-center">
+        <button id="more" class="px-7 py-3 rounded-2xl bg-red-500 hover:bg-red-600 text-white font-extrabold shadow disabled:opacity-50 disabled:cursor-not-allowed">
+          Daha Fazla Yükle
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-sm font-semibold text-gray-500">
+      © 2026 Pokemon Ürünler — Ürün Kataloğu
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+
+  <script>
+    // Mobile menu
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    const TYPE_CLASS = {
+      fire: "bg-red-100 text-red-700",
+      water: "bg-blue-100 text-blue-700",
+      grass: "bg-green-100 text-green-700",
+      electric: "bg-yellow-100 text-yellow-800",
+      psychic: "bg-purple-100 text-purple-700",
+      dragon: "bg-indigo-100 text-indigo-700",
+      fairy: "bg-pink-100 text-pink-700",
+      dark: "bg-gray-200 text-gray-800",
+      normal: "bg-gray-100 text-gray-700",
+      fighting: "bg-orange-100 text-orange-700",
+      flying: "bg-cyan-100 text-cyan-700",
+      poison: "bg-purple-100 text-purple-700",
+      ground: "bg-yellow-100 text-yellow-800",
+      rock: "bg-gray-200 text-gray-800",
+      bug: "bg-green-100 text-green-700",
+      ghost: "bg-purple-100 text-purple-700",
+      steel: "bg-gray-200 text-gray-800",
+      ice: "bg-cyan-100 text-cyan-700"
+    };
+
+    const grid = document.getElementById("grid");
+    const qEl = document.getElementById("q");
+    const typeEl = document.getElementById("type");
+    const sortEl = document.getElementById("sort");
+    const resetEl = document.getElementById("reset");
+    const countEl = document.getElementById("count");
+    const prevEl = document.getElementById("prev");
+    const nextEl = document.getElementById("next");
+    const pageInfoEl = document.getElementById("pageInfo");
+    const moreEl = document.getElementById("more");
+
+    const PER_PAGE = 20;
+    let totalCount = 0;
+    let offset = 0;
+    let page = 1;
+
+    // Bu sayfada 2 farklı API kullanımını garanti edelim:
+    // - getPokemonList(limit, offset)
+    // - searchPokemon(query) (tekli pokemon)
+    // Kullanıcı aramada ID veya isim yazarsa önce searchPokemon deneriz.
+
+    function sortList(list) {
+      const s = sortEl.value;
+      return [...list].sort((a,b) => {
+        switch(s) {
+          case "id-asc": return a.id - b.id;
+          case "id-desc": return b.id - a.id;
+          case "price-asc": return (a.price||0) - (b.price||0);
+          case "price-desc": return (b.price||0) - (a.price||0);
+          case "name-asc": return a.name.localeCompare(b.name);
+          case "name-desc": return b.name.localeCompare(a.name);
+          default: return 0;
+        }
+      });
+    }
+
+    function filterList(list) {
+      const q = qEl.value.trim().toLowerCase();
+      const t = typeEl.value;
+      return list.filter(p => {
+        const matchQ = !q || p.name.toLowerCase().includes(q) || String(p.id) === q;
+        const matchT = !t || (p.types||[]).includes(t);
+        return matchQ && matchT;
+      });
+    }
+
+    function render(list, mode="replace") {
+      const final = sortList(filterList(list));
+
+      if (!final.length) {
+        app.showEmpty(grid, "Kriterlere uygun ürün bulunamadı.");
+        return;
+      }
+
+      const html = final.map(p => `
+        <article class="bg-white rounded-3xl shadow border border-gray-100 overflow-hidden hover:shadow-lg transition">
+          <button class="w-full text-left" onclick="location.href='/detail.html?id=${p.id}'">
+            <div class="p-4 bg-gradient-to-br from-gray-50 to-gray-100 border-b">
+              <div class="flex items-center justify-between">
+                <div class="text-xs font-black text-gray-500">#${String(p.id).padStart(3,'0')}</div>
+                ${p.rarity ? `<div class="text-[11px] font-extrabold px-2.5 py-1 rounded-full ${p.rarity==='Legendary'?'bg-yellow-100 text-yellow-800':p.rarity==='Mythical'?'bg-purple-100 text-purple-700':'bg-gray-100 text-gray-700'}">${p.rarity}</div>` : ""}
+              </div>
+              <img src="${p.image}" alt="${p.name}" class="mt-3 h-40 w-full object-contain" loading="lazy">
+            </div>
+
+            <div class="p-4">
+              <div class="font-black text-lg capitalize">${p.name}</div>
+              <div class="mt-2 flex flex-wrap gap-2">
+                ${(p.types||[]).slice(0,3).map(t => `
+                  <span class="text-[11px] font-extrabold px-3 py-1 rounded-full ${TYPE_CLASS[t] || 'bg-gray-100 text-gray-700'}">${t}</span>
+                `).join("")}
+              </div>
+
+              <div class="mt-4 flex items-center justify-between">
+                <div class="text-red-600 font-black text-xl">₺${p.price ?? "—"}</div>
+                <div class="text-sm font-extrabold text-gray-700 inline-flex items-center gap-2">
+                  Detay
+                  <span class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center">→</span>
+                </div>
+              </div>
+            </div>
+          </button>
+        </article>
+      `).join("");
+
+      if (mode === "append") grid.innerHTML += html;
+      else grid.innerHTML = html;
+    }
+
+    function updatePager(displayedCount) {
+      const totalPages = Math.max(1, Math.ceil(totalCount / PER_PAGE));
+      pageInfoEl.textContent = `Sayfa ${page} / ${totalPages}`;
+      countEl.textContent = `Gösterilen: ${displayedCount} / ${totalCount}`;
+
+      prevEl.disabled = offset === 0;
+      nextEl.disabled = offset + PER_PAGE >= totalCount;
+
+      // "Load more" mantığında, eğer son sayfadaysak disable
+      moreEl.disabled = offset + PER_PAGE >= totalCount;
+      moreEl.textContent = moreEl.disabled ? "Tüm Ürünler Yüklendi" : "Daha Fazla Yükle";
+    }
+
+    async function loadPage(newOffset, mode="replace") {
+      app.showLoading(grid);
+
+      try {
+        const data = await pokeAPI.getPokemonList(PER_PAGE, newOffset);
+        totalCount = data.count || totalCount || 0;
+        offset = newOffset;
+        page = Math.floor(offset / PER_PAGE) + 1;
+
+        render(data.results, mode);
+        updatePager(data.results.length);
+      } catch (e) {
+        const fallback = await pokeAPI.loadFallbackData();
+        if (fallback?.results?.length) {
+          const warn = app.showFallbackWarning();
+          grid.parentElement.insertBefore(warn, grid);
+
+          totalCount = fallback.results.length;
+          offset = 0;
+          page = 1;
+
+          render(fallback.results, "replace");
+          updatePager(fallback.results.length);
+        } else {
+          app.showError(grid, "Ürünler yüklenemedi. İnternet bağlantınızı kontrol edip tekrar deneyin.", "loadPage(0)");
+        }
+      }
+    }
+
+    // API kullanım #2: Aramada önce searchPokemon dene (tekli endpoint /pokemon/{nameOrId})
+    async function tryRemoteSearch() {
+      const q = qEl.value.trim().toLowerCase();
+      if (!q) return null;
+
+      // Eğer kullanıcı tam isim/ID girerse tekli çağrı ile hızlı getir
+      const single = await pokeAPI.searchPokemon(q);
+      if (single && single.length) return single;
+      return null;
+    }
+
+    let searchTimer = null;
+    function onFiltersChanged() {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(async () => {
+        // mevcut sayfayı yeniden çekmeden önce tekli arama şansı ver
+        const q = qEl.value.trim();
+        if (q) {
+          app.showLoading(grid);
+          const single = await tryRemoteSearch();
+          if (single) {
+            totalCount = 1;
+            offset = 0;
+            page = 1;
+            render(single, "replace");
+            updatePager(1);
+            prevEl.disabled = true;
+            nextEl.disabled = true;
+            moreEl.disabled = true;
+            moreEl.textContent = "Arama Sonucu";
+            return;
+          }
+        }
+        // tekli arama yoksa, listeyi sayfa üzerinden getir
+        loadPage(0, "replace");
+      }, 350);
+    }
+
+    qEl.addEventListener("input", onFiltersChanged);
+    typeEl.addEventListener("change", onFiltersChanged);
+    sortEl.addEventListener("change", () => loadPage(offset, "replace"));
+    resetEl.addEventListener("click", () => {
+      qEl.value = "";
+      typeEl.value = "";
+      sortEl.value = "id-asc";
+      loadPage(0, "replace");
+    });
+
+    prevEl.addEventListener("click", () => {
+      if (offset === 0) return;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      loadPage(Math.max(0, offset - PER_PAGE), "replace");
+    });
+
+    nextEl.addEventListener("click", () => {
+      if (offset + PER_PAGE >= totalCount) return;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      loadPage(offset + PER_PAGE, "replace");
+    });
+
+    moreEl.addEventListener("click", () => {
+      if (offset + PER_PAGE >= totalCount) return;
+      loadPage(offset + PER_PAGE, "append");
+      offset = offset + PER_PAGE;
+    });
+
+    // init
+    loadPage(0, "replace");
+  </script>
+</body>
+</html>
