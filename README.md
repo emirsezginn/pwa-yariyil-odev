@@ -33,3 +33,6 @@ API isteklerinde ağdan veri çekmeyi önceliklendiren, bağlantı olmadığı d
 Önbellek sürümleme ve eski önbelleklerin temizlenmesi sayesinde uygulama güncellemelerinde bozuk veya tutarsız veri riski azaltılmakta; yeni bir sürüm yüklendiğinde eski servis çalışanın hızlıca devre dışı bırakılabilmesi için bekleme atlama (skip waiting) mekanizması desteklenmektedir.
 
 canlı demo linki; https://pokemon-urunler.netlify.app/
+
+video linki; assets/video/Ekran_Kaydı_2026_01_06_214143_V1.mp4
+
