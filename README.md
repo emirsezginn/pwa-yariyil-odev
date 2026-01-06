@@ -14,9 +14,11 @@ Duyarlı (responsive) arayüz tasarımı sayesinde masaüstü ve mobil cihazlard
 
 
 Kullanılan api= https://pokeapi.co/api/v2
+</br>
 Örnek Endpoint;
 const res = await fetch(`${API_BASE}/pokemon?limit=${limit}&offset=${offset}`, { cache: "no-store" });
       if (!res.ok) throw new Error('Pokemon list fetch failed');
+
 
 Kullanılan CSS çatısı: tailwind
 
@@ -29,3 +31,5 @@ Uygulama kabuğunun (HTML sayfaları, temel JavaScript dosyaları ve örnek veri
 API isteklerinde ağdan veri çekmeyi önceliklendiren, bağlantı olmadığı durumlarda ise daha önce önbelleğe alınmış yanıtı ya da açıklayıcı bir hata mesajı döndüren bir strateji kullanılmaktadır. Statik dosyalar için ise önbellekten hızlı yanıt verirken arka planda güncel sürümü ağdan çekerek yenileyen bir yaklaşım uygulanmakta, böylece hız ve güncellik dengesi korunmaktadır.
 
 Önbellek sürümleme ve eski önbelleklerin temizlenmesi sayesinde uygulama güncellemelerinde bozuk veya tutarsız veri riski azaltılmakta; yeni bir sürüm yüklendiğinde eski servis çalışanın hızlıca devre dışı bırakılabilmesi için bekleme atlama (skip waiting) mekanizması desteklenmektedir.
+
+canlı demo linki; https://pokemon-urunler.netlify.app/
